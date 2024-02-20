@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 const connectString = 'mongodb://localhost:27017/ShopDev'
-
+const { countConnect } = require('../helpers/check.connect')
 class Database
 {
     constructor()
@@ -19,7 +19,11 @@ class Database
             mongoose.set('debug', { color: true })
         }
 
-        mongoose.connect(connectString).then(_ => console.log('Connected to MongoDB Singleton sucessfully')).catch(_ => console.log('Error connect!'))
+        mongoose.connect(connectString).then(_ =>
+        {
+            console.log('Connected to MongoDB Singleton sucessfully')
+            countConnect()
+        }).catch(_ => console.log('Error connect!'))
     }
 
     static getInstance()
